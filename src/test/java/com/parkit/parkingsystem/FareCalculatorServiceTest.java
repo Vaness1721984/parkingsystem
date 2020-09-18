@@ -124,4 +124,16 @@ public class FareCalculatorServiceTest {
         assertEquals( (24 * Fare.CAR_RATE_PER_HOUR) , ticket.getPrice());
     }
 
+    @Test
+    public void parkingForCarShouldBeFreeUnder30Minutes(){
+//TODO: check that the fare generated is equal to zero
+
+    }
+
+    @Test
+    public void parkingForBikeShouldBeFreeUnder30Minutes(){
+//TODO: check that the fare generated is equal to zero
+
+    }
+
 }
