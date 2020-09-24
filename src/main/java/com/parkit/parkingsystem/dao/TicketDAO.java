@@ -5,6 +5,7 @@ import com.parkit.parkingsystem.constants.DBConstants;
 import com.parkit.parkingsystem.constants.ParkingType;
 import com.parkit.parkingsystem.model.ParkingSpot;
 import com.parkit.parkingsystem.model.Ticket;
+import com.parkit.parkingsystem.util.InputReaderUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -86,4 +87,38 @@ public class TicketDAO {
         }
         return false;
     }
+        //Ajout Booleen pour Recurring Users
+    public Boolean getRecurringUsers(String vehicleRegNumber) {
+        DataBaseConfig dataBaseConfig = new DataBaseConfig();
+        Connection con = null;
+        Boolean isRecurring = false;
+        try {
+            con = dataBaseConfig.getConnection();
+            PreparedStatement ps = con.prepareStatement(DBConstants.GET_RECURRING_USERS);
+            ps.setString(1, vehicleRegNumber);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                System.out.println("Welcome back! As a recurring use of our parking lot, you'll benefit from a 5%" +
+                        " discount.");
+                isRecurring = true;
+            }
+        } catch (Exception ex) {
+            logger.error("To be defined", ex);
+        } finally {
+            dataBaseConfig.closeConnection(con);
+        }
+        return isRecurring ;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 }
