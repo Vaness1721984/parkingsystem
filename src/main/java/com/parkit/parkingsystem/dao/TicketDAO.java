@@ -5,7 +5,6 @@ import com.parkit.parkingsystem.constants.DBConstants;
 import com.parkit.parkingsystem.constants.ParkingType;
 import com.parkit.parkingsystem.model.ParkingSpot;
 import com.parkit.parkingsystem.model.Ticket;
-import com.parkit.parkingsystem.util.InputReaderUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -20,7 +19,8 @@ public class TicketDAO {
 
     public DataBaseConfig dataBaseConfig = new DataBaseConfig();
 
-    public boolean saveTicket(Ticket ticket){
+    @SuppressWarnings("finally")
+	public boolean saveTicket(Ticket ticket){
         Connection con = null;
         try {
             con = dataBaseConfig.getConnection();
@@ -41,7 +41,8 @@ public class TicketDAO {
         }
     }
 
-    public Ticket getTicket(String vehicleRegNumber) {
+    @SuppressWarnings("finally")
+	public Ticket getTicket(String vehicleRegNumber) {
         Connection con = null;
         Ticket ticket = null;
         try {
@@ -87,7 +88,11 @@ public class TicketDAO {
         }
         return false;
     }
-        //Ajout Booleen pour Recurring Users
+         /*
+         * Method which get recurring users through SQL query "GET_RECURRING_USERS" in class DBConstants
+         * If vehicleRegNumber already exists in database boolean will return true
+         * If boolean returns true a personalized message will be displayed
+         */
     public Boolean getRecurringUsers(String vehicleRegNumber) {
         DataBaseConfig dataBaseConfig = new DataBaseConfig();
         Connection con = null;
@@ -103,7 +108,7 @@ public class TicketDAO {
                 isRecurring = true;
             }
         } catch (Exception ex) {
-            logger.error("To be defined", ex);
+            logger.error("Unable to get recurring users from database", ex);
         } finally {
             dataBaseConfig.closeConnection(con);
         }
