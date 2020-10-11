@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FindBugsFilter>
+<Match>
+   <Bug category="SECURITY"/>
+</Match>
+<Match>
+   <Bug category="EXPERIMENTAL"/>
+</Match>
+<Match>
+   <Bug category="BAD_PRACTICE"/>
+</Match>
+<Match>
+   <Bug category="MALICIOUS_CODE"/>
+</Match>
+<Match>
+   <Bug category="I18N"/>
+</Match>
+</FindBugsFilter>
