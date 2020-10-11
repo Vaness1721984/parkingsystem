@@ -168,7 +168,7 @@
                 <version>3.0.5</version>
                 <configuration>
                     <xmlOutput>true</xmlOutput>
-                    <excludeFilterFile>${project.build.outputDirectory}/findbugs/exclude.xml</excludeFilterFile>
+                    <excludeFilterFile>${project.build.outputDirectory}/exclude.xml</excludeFilterFile>
                 </configuration>
             </plugin>
         </plugins>
