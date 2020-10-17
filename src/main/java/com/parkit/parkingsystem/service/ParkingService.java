@@ -28,20 +28,22 @@ public class ParkingService {
         this.ticketDAO = ticketDAO;
     }
 
-    public void processIncomingVehicle() {
-        try{
+    public void processIncomingVehicle() throws Exception {
+        String vehicleRegNumber = getVehichleRegNumber();
+        // If boolean returns true a personalized message will be displayed
+        if(ticketDAO.getRecurringUsers(vehicleRegNumber)==true) {
+            System.out.println("Welcome back! As a recurring use of our parking lot, you'll benefit from a 5%" +
+                    " discount.");
+        } else {
+            System.out.println("");
+        }
+        try {
             ParkingSpot parkingSpot = getNextParkingNumberIfAvailable();
             if(parkingSpot !=null && parkingSpot.getId() > 0){
-                String vehicleRegNumber = getVehichleRegNumber();
-                //Method to check whether the user has already entered in the parking
-                ticketDAO.getRecurringUsers(vehicleRegNumber);
                 parkingSpot.setAvailable(false);
                 parkingSpotDAO.updateParking(parkingSpot);//allot this parking space and mark it's availability as false
-
                 Date inTime = new Date();
                 Ticket ticket = new Ticket();
-                //ID, PARKING_NUMBER, VEHICLE_REG_NUMBER, PRICE, IN_TIME, OUT_TIME)
-                //ticket.setId(ticketID);
                 ticket.setParkingSpot(parkingSpot);
                 ticket.setVehicleRegNumber(vehicleRegNumber);
                 ticket.setPrice(0);
@@ -54,6 +56,7 @@ public class ParkingService {
                 System.out.println("Please park your vehicle in spot number:"+parkingSpot.getId());
                 System.out.println("Recorded in-time for vehicle number:"+vehicleRegNumber+" is:"+inTime);
             }
+
         }catch(Exception e){
             logger.error("Unable to process incoming vehicle",e);
         }
