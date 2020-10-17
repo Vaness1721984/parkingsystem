@@ -91,7 +91,7 @@ public class TicketDAO {
          /*
          * Method which get recurring users through SQL query "GET_RECURRING_USERS" in class DBConstants
          * If vehicleRegNumber already exists in database boolean will return true
-         * If boolean returns true a personalized message will be displayed
+
          */
     public Boolean getRecurringUsers(String vehicleRegNumber) {
         DataBaseConfig dataBaseConfig = new DataBaseConfig();
@@ -103,8 +103,6 @@ public class TicketDAO {
             ps.setString(1, vehicleRegNumber);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                System.out.println("Welcome back! As a recurring use of our parking lot, you'll benefit from a 5%" +
-                        " discount.");
                 isRecurring = true;
             }
         } catch (Exception ex) {
